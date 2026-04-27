@@ -1,0 +1,18 @@
+.block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 0rem !important;
+}
+
+header[data-testid="stHeader"] {
+    display: none !important;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; 
+}
+a {
+    color: black;
+}
