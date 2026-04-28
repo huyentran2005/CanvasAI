@@ -1,8 +1,12 @@
 import streamlit as st
+import os
 from supabase import create_client
+from dotenv import load_dotenv
 
-SUPABASE_KEY = "sb_publishable_D3NT90yBSQRbpEzCBJItYA_qTDPNPI5"
-SUPABASE_URL = "https://qrpbsjxrccplaovamfux.supabase.co"
+load_dotenv()
+
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+SUPABASE_URL = os.getenv("SUPABASE_URL")
 
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
