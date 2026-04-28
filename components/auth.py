@@ -43,7 +43,7 @@ def process_login_callback():
             st.query_params.clear()
             return True
         except Exception as e:
-            st.error(f"Lỗi khi đổi mã xác thực: {e}")
+            pass
     return False
 
 def login(provider):
