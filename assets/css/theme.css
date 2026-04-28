@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Chakra+Petch:wght@400;500;600;700&family=Pixelify+Sans:wght@400;500;600;700&family=Tiny5&family=VT323&display=swap');
+h1 {
+    font-size: 40px !important;
+    font-family: 'Pixelify Sans', sans-serif !important;
+    margin-top: 34% !important;
+    text-align: center !important;
+    color: rgb(232, 232, 232) !important;
+    text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.8),
+        0 0 10px rgba(168, 85, 247, 0.5),
+        0 0 20px rgba(255, 122, 26, 0.3); 
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+h1:hover{
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}
