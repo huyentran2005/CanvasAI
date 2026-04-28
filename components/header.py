@@ -1,5 +1,6 @@
 import streamlit as st
 from .auth import *
+from services import *
 import os
 
 @st.dialog('Đăng nhập')
@@ -36,11 +37,7 @@ def process_login_logout(col_user):
 
 
 def show_header():
-    css_path = os.path.join(os.path.dirname(__file__),"..","assets","css","header.css")
-    if os.path.exists(css_path):
-        with open(css_path) as f:
-            st.markdown(f"<style>{f.read()}</style>",unsafe_allow_html= True)
-            f.close()
+    embed_css("header.css")
 
     # =======Header==========
     col_logo ,col_space, col_user = st.columns([2,5,2.7])
