@@ -14,8 +14,6 @@ def display_bottom_bar(btn = ["⟲ Reset ","EXPORT PNG","EXPORT JPG"]):
                 if st.session_state.get("original_img") is not None:
                     st.session_state.edited_img = st.session_state.original_img.copy()
                     st.rerun()
-                else:
-                    pass
 
         with col[2]:
             if image is None:
