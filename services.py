@@ -13,3 +13,15 @@ def embed_css(name =""):
 def get_base64(img_path):
     with open(img_path,"rb") as f:
         return base64.b64encode(f.read()).decode()
+
+
+def init_default_state():
+    defaults = {
+        "edited_img": None,
+        "original_img": None,
+        "user": None,
+    }
+
+    for key, value in defaults.items():
+        if key not in st.session_state:
+            st.session_state[key] = value

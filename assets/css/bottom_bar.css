@@ -1,0 +1,96 @@
+/* ==================== BOTTOM BAR ==================== */
+div.st-key-bottom_bar_section {
+    position: fixed !important;
+    filter: blur(0.9);
+    bottom: 5px !important;
+    left: 0.8% !important;
+    right: 0.8% !important;
+    height: 65px !important;
+    width: calc(100% - 1.6%) !important;
+    width: calc(100% - 20px) !important;
+    background: rgba(18, 21, 34, 0.85) !important;
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-top: 2px solid #1a1c2a !important;
+    border-radius: 7px;
+    padding: 15px 30px !important;
+    z-index: 100000 !important;
+    border: 2px #19337aa7 solid;
+}
+div.st-key-bottom_bar_section > div {
+    max-width: 100% !important;
+}
+div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important; 
+}
+
+/* ==================== BUTTONS ==================== */
+
+/* Button chung */
+div.st-key-bottom_bar_section button {
+    margin-top: 13px !important;
+    height: 35px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* === RESET === */
+div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] > div:nth-child(2) button {
+    background: linear-gradient(145deg, rgba(41, 47, 64, 0.4), rgba(20, 28, 45, 0.4))  !important;
+    border: 1px solid rgba(123, 129, 149, 0.6) !important;
+    color: #bae6fd !important;
+    box-shadow: 0 0 10px rgba(20, 28, 45, 0.3),
+                inset 0 0 8px rgba(41, 47, 64, 0.2) !important;
+}
+
+div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] > div:nth-child(2) button:hover {
+    background: linear-gradient(145deg, #292f40, #141c2d) !important;
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.5),
+                inset 0 0 15px rgba(147, 197, 253, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+/* === EXPORT PNG === */
+div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] > div:nth-child(3) button {
+    background: linear-gradient(145deg, #1e3a8a, #1e40af) !important;
+    border: 1px solid #60a5fa !important;
+    color: #bae6fd !important;
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.4),
+                inset 0 0 12px rgba(147, 197, 253, 0.2) !important;
+}
+
+div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] > div:nth-child(3) button:hover {
+    background: linear-gradient(145deg, #1e40af, #2563eb) !important;
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.7),
+                inset 0 0 15px rgba(147, 197, 253, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+/* === EXPORT JPG === */
+div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] > div:last-child button {
+    background: linear-gradient(145deg, #4c1d95, #6d28d9) !important;
+    border: 1px solid #a78bfa !important;
+    color: #ddd6fe !important;
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.4),
+                inset 0 0 12px rgba(192, 132, 252, 0.2) !important;
+}
+
+div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] > div:last-child button:hover {
+    background: linear-gradient(145deg, #6d28d9, #7c3aed) !important;
+    box-shadow: 0 0 22px rgba(167, 139, 250, 0.75),
+                inset 0 0 15px rgba(192, 132, 252, 0.35) !important;
+    transform: translateY(-2px);
+}
+
+/* Tăng độ nổi cho các nút */
+div.st-key-bottom_bar_section button:active {
+    transform: scale(0.97) !important;
+}
