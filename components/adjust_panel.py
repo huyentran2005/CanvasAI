@@ -13,18 +13,19 @@ def display_left_panel():
             label_visibility="collapsed"
         )
 
-        action = st.selectbox(
-            "Algorithm",
-            ["Algorithm","HE","CLAHE","Retinex"],
-            label_visibility= "collapsed"
-        )
-        
         if st.button("AI ANALYZE",use_container_width=True, key = 'btn_ai'):
             pass
         if st.button("REMOVE OBJECT",  icon="🧽", use_container_width=True, key = 'btn_remove'):
             pass
         if st.button("DRAW MASK", icon="🎭", use_container_width=True, key ='btn_mask'):
             pass
+
+        action = st.selectbox(
+            "Algorithm",
+            ["Algorithm","HE","CLAHE","Retinex"],
+            label_visibility= "collapsed"
+        )
+
         if st.button("UNDO", icon="↩️", use_container_width=True, key ='btn_undo'):
             pass
         if st.button("REDO", icon="↪️", use_container_width=True, key ='btn_redo'):
