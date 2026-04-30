@@ -175,6 +175,7 @@ div.st-key-left_panel div[data-testid="stFileUploader"] p{
 }
 
 div[data-testid="stFileUploader"] button svg,
+div[data-testid="stFileUploader"] [data-testid="stBaseButton-borderlessIcon"],
 div[data-testid="stFileUploader"]  div.e3v525e3{
     display: none !important;
 }
