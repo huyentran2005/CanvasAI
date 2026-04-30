@@ -164,7 +164,7 @@ div.st-key-left_panel div.st-key-btn_mask button:hover {
 /* ---  CHỈNH FILE UPLOADER (UPLOAD IMAGE) --- */
 div[data-testid="stFileUploader"] section {
     background-color: #161625 !important;
-    border: 1.5px solid #ffa5568a !important; /* Viền cam chuẩn */
+    border: 1.5px solid #ffa5568a !important; 
     padding: 0 !important;
     border-radius: 8px !important;
     height: 15px !important;
@@ -174,9 +174,17 @@ div.st-key-left_panel div[data-testid="stFileUploader"] p{
     font-size: 20px !important;
 }
 
-div[data-testid="stFileUploader"] section > div:nth-child(2), 
+div[data-testid="stFileUploader"] button svg,
 div[data-testid="stFileUploader"]  div.e3v525e3{
     display: none !important;
+}
+
+
+div[data-testid="stFileUploader"] div[data-testid = "stFileChip"]{
+    background: none !important;
+    margin-top: 7px !important;
+    align-items: center !important;
+    text-align: center !important;
 }
 
 div[data-testid="stFileUploader"] button {
@@ -191,6 +199,19 @@ div[data-testid="stFileUploader"] button {
     padding-left: 15px !important;
     margin-top: 15px !important;
 }
+
+div[data-testid="stFileUploader"] [data-testid="stFileChipName"], .e1dmul8p8 {
+    display: block !important;
+    color: #ffd6b0 !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 4px 0;
+}
+
+
 
 /* ---  CHỈNH SELECTBOX (ALGORITHM) --- */
 div[data-testid="stSelectbox"] [data-baseweb="select"], 
