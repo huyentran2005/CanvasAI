@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Chakra+Petch:wght@400;500;600;700&family=Pixelify+Sans:wght@400;500;600;700&family=Tiny5&family=VT323&display=swap');
+
+div.st-key-main_canvas p{
+    color: #ffffff !important;
+    font-size: 16px !important;
+    font-family:'VT323', sans-serif !important;
+}
+div.st-key-main_canvas {
+    display: flex !important;
+    justify-content: center !important;  
+    align-items: center !important;
+    position: fixed !important;
+    filter: blur(0.9);    
+    top: 92px;
+    margin-left: -2.5% !important;
+    width: 53vw !important;
+    height: 76vh !important;
+    background: rgba(18, 21, 34, 0.85) !important;
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px) !important;
+    padding: 15px 30px !important;
+    z-index: 100000 !important;
+    position: fixed;
+    overflow: hidden;
+    padding: 3px !important;
+    object-fit: contain !important;
+   
+}
+
+div.st-key-main_canvas div.stElementToolbar{
+    display: none;
+}
+
+img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
