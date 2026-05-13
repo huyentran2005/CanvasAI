@@ -1,5 +1,18 @@
 /* ==================== BOTTOM BAR ==================== */
+[data-testid="stAppViewContainer"] {
+    padding-bottom: 100px !important;
+}
+div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] {
+    position: fixed !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 50px !important;
+    width: 95% !important;
+}
+
 div.st-key-bottom_bar_section {
+
     position: fixed !important;
     filter: blur(0.9);
     bottom: 5px !important;
@@ -19,11 +32,7 @@ div.st-key-bottom_bar_section {
 div.st-key-bottom_bar_section > div {
     max-width: 100% !important;
 }
-div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important; 
-}
+
 
 /* ==================== BUTTONS ==================== */
 
@@ -32,9 +41,24 @@ div.st-key-bottom_bar_section  button p, h3{
     font-size: 17px !important;
 }
 /* Button chung */
-div.st-key-bottom_bar_section button {
-    margin-top: 13px !important;
+div.stDownloadButton {
+    display: flex !important;
+    height: 53px !important;
+}
+div.stDownloadButton button {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+
     height: 35px !important;
+    padding: 0 20px !important;
+
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+}
+div.st-key-bottom_bar_section button {
+    height: 35px !important;
+    padding: 8px 25px !important;
     border-radius: 8px !important;
     font-size: 13px !important;
     font-weight: 700 !important;
