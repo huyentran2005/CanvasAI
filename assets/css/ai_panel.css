@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Chakra+Petch:wght@400;500;600;700&family=Pixelify+Sans:wght@400;500;600;700&family=Tiny5&family=VT323&display=swap');
+
+/* Khung */
+div.st-key-right_panel {
+    position: fixed !important;
+    filter: blur(0.9);
+    top: 13% !important;
+    left: 74% !important;
+    right: 0.8% !important;
+    height: 76% !important;
+    width: 25% !important ;
+    background: rgba(18, 21, 34, 0.85) !important;
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 7px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding: 15px 30px !important;
+    z-index: 100000 !important;
+    overflow: hidden !important;
+    
+}
+
+div.st-key-right_panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: linear-gradient(225deg, #71340b, #af5e00, #e2d5be) ;
+    border-radius: inherit;
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Tieu de */
+div.st-key-right_panel h3{
+    position: relative;
+    color: #FF7B39;
+    padding-top: 0px !important;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 26px !important;
+}
+div.st-key-right_panel h3::after{
+    position: absolute;
+    bottom: 11px;
+    left: -18px;
+    content: "";
+    width: 120%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        rgba(226, 116, 43, 0.2),
+        rgba(212, 155, 71, 0.9),
+        rgba(130, 59, 0, 0.2)
+    );
+    opacity: 0.7;
+}
+
+div.st-key-right_panel span, 
+div.st-key-right_panel p,
+div.st-key-right_panel div.stButton >button p{
+    font-family: 'VT323', sans-serif !important;
+} 
+
+div.st-key-right_panel span:not(.badge){
+    color: #ffe0b7 !important;
+} 
+div.st-key-right_panel div.stButton >button p{
+    font-size: 17px !important;
+} 
+
+/* ---------------------- */
+.st-key-analysis_card {
+    background: rgba(18, 21, 34, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #2a2f45;
+    color: white;
+    font-family: 'VT323', sans-serif;
+}
+
+.analysis-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #2a2f45;
+    padding-bottom: 8px;
+}
+
+.analysis-item {
+    margin-bottom: 15px;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+/* Progress bar nền */
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #1a1f2e;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Thanh fill */
+.progress-fill {
+    height: 100%;
+    border-radius: 5px;
+}
+
+/* Màu */
+.high {
+    background: #ff4d4d;
+}
+
+.medium {
+    background: #ffa726;
+}
+
+.low {
+    background: #2ecc71;
+}
+.None{
+    background: #2e0c3d;
+}
+/* Badge */
+.badge {
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge.high {
+    color: #ff4d4d;
+    background: rgba(255,0,0,0.1);
+}
+
+.badge.medium {
+    color: #ffa726;
+    background: rgba(255,165,0,0.1);
+}
+
+.badge.low {
+    color: #2ecc71;
+    background: rgba(0,255,0,0.1);
+}
+.badge.None{
+    color: #ffff;
+    background: rgba(0,255,0,0.1);
+}
+
+/* button */
+div.st-key-right_panel .stButton > button{
+    margin-top: 15px !important;
+    margin-bottom: 7px !important;
+    height: 30px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease !important;
+    position: relative;
+    overflow: hidden;
+}
+
+div.st-key-right_panel div.st-key-btn-analysis button{
+    background: linear-gradient(145deg, rgba(41, 47, 64, 0.4), rgba(20, 28, 45, 0.4))  !important;
+    border: 1.5px solid rgba(123, 129, 149, 0.6) !important;
+    color: #bae6fd !important;
+    box-shadow: 0 0 10px rgba(20, 28, 45, 0.3),
+                inset 0 0 8px rgba(41, 47, 64, 0.2) !important;
+}
+
+div.st-key-right_panel div.st-key-btn-analysis button:hover {
+    background: linear-gradient(145deg, #292f40, #141c2d) !important;
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.5),
+                inset 0 0 15px rgba(147, 197, 253, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+/* mask */
+div.st-key-right_panel div.stElementToolbar{
+    display: none;
+}
+
+div.st-key-right_panel p{
+    color: #ff9500 !important;
+    font-size: 20px !important;
+    margin-bottom: 5px;
+}
+div.st-key-masked{
+    position: relative !important;
+}
+
+div.st-key-masked_img{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+div.st-key-masked img {
+    width: 200px !important;
+    height: 155px !important;
+    object-fit: contain !important;
+}
+
+
