@@ -4,6 +4,7 @@ from openai import OpenAI
 from PIL import Image 
 import io
 import os
+import time
 import json
 import base64
 import google.generativeai as genai
@@ -121,21 +122,27 @@ def display_right_panel():
                     },
         ]
         with st.container(key="container"):
-
+            image_edited = None
             if st.button("PHÂN TÍCH ẢNH",icon="🔍",use_container_width=True, key = 'btn-analysis'):
                 image_edited = st.session_state.edited_img
-                if image_edited:
-                        try:
-                            resuilt = analysis_img_with_gemini(image_edited, image_edited.format)
-                        except Exception as e:
-                            if "429" in str(e):
-                                st.session_state.mess = "⚠️ Bạn đã dùng hết lượt phân tích miễn phí!"
-                            else:
-                                print(f"error: {e}")
-            with st.container(key ="analysis-card"):
-                for r in resuilt:
-                    analysis_item(r["name"], r["level"], r["score"], r["severity"])
+                with st.spinner("⏳AI đang phân tích ảnh ..."):
+                    if image_edited:
+                            try:
+                                resuilt = analysis_img_with_gemini(image_edited, image_edited.format)
+                            except Exception as e:
+                                error_placeholder = st.empty()
+                                if "429" in str(e):
+                                    error_placeholder.error("⚠️ Bạn đã dùng hết lượt phân tích miễn phí!")
+                                else:
+                                    print(f"error: {e}")
+                                time.sleep(3)
+                                error_placeholder.empty()
 
+
+                with st.container(key ="analysis-card"):
+                    for r in resuilt:
+                        analysis_item(r["name"], r["level"], r["score"], r["severity"])
+            
 
             with st.container(key="masked"):
                 st.caption("DETECTION MASK")

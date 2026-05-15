@@ -122,3 +122,88 @@ div.st-key-bottom_bar_section [data-testid="stHorizontalBlock"] > div:last-child
 div.st-key-bottom_bar_section button:active {
     transform: scale(0.97) !important;
 }
+
+/* ===============Input================= */
+div[data-testid="stTextInput"] {
+    position: absolute !important;
+    width: 100% !important;
+    top: -55px !important;
+    font-size: 13px !important;
+    padding: 2px 8px !important;
+}
+div[data-testid="stTextInput"] input{
+    background: linear-gradient(180deg,#151932 0%,#10152b 100%) !important;
+
+    color:#f3f3f3 !important;
+
+    border:1px solid rgba(130,90,255,0.45) !important;
+
+    border-radius:14px !important;
+
+    padding:12px 16px !important;
+
+    font-size:14px !important;
+
+    box-shadow:
+        0 0 12px rgba(128,0,255,0.18),
+        inset 0 0 10px rgba(255,255,255,0.03);
+
+    transition:0.25s ease;
+}
+div[data-testid="stTextInput"] input:focus{
+    border:1px solid #8b5cf6 !important;
+
+    box-shadow:
+        0 0 0 1px #8b5cf6,
+        0 0 18px rgba(139,92,246,0.45) !important;
+}
+
+div[data-testid="stTextInput"] input::placeholder {
+        color: #6b7280 !important;
+        opacity: 0.8;
+}
+
+div[data-testid="stTextInput"] > div {
+        background: transparent !important;
+        border: none !important;
+}
+
+div[data-testid="stTextInput"] input:focus {
+        border: 1px solid #8b5cf6 !important;
+        outline: none;
+        box-shadow: 
+            0 0 0 2px rgba(139, 92, 246, 0.3),
+            0 0 20px rgba(139, 92, 246, 0.55) !important;
+    }
+div[data-testid="InputInstructions"] {
+    display: none;
+}
+
+div[data-testid="stTextInput"]::after{
+    content: "Nhập object cần remove...";
+    
+    position: absolute;
+
+    left: 24px;
+    top: 11px;
+
+    color: #6b7280;
+    font-size: 14px;
+
+    pointer-events: none;
+
+    transition: all .22s ease;
+
+    background: #12182f;
+    padding: 0 4px;
+}
+
+div[data-testid="stTextInput"]:focus-within::after{
+    position: absolute;
+    top: -8px;
+    left: 18px;
+
+    font-size: 11px;
+
+    color: #a855f7;
+}

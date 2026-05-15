@@ -9,6 +9,13 @@ def display_bottom_bar(btn = ["⟲ Reset ","EXPORT PNG","EXPORT JPG"]):
 
         col = []
         col = st.columns([5,0.8,0.8,0.8])
+        with col[0]:
+            put, nofi = st.columns([1.5,4])
+            with put:
+                object = st.text_input(
+                    "Input",
+                    label_visibility="collapsed"
+                )
         with col[1]:
             if st.button(btn[0]):
                 if st.session_state.get("original_img") is not None:
