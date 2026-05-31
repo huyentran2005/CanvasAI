@@ -20,6 +20,12 @@ def init_default_state():
         "edited_img": None,
         "original_img": None,
         "user": None,
+        "masked_img": None,
+        "analysis": False,
+        "object":None,
+        "undo_stack": [],
+        "redo_stack": [],
+        "last_upload_signature": None,
     }
 
     for key, value in defaults.items():

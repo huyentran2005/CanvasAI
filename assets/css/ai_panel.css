@@ -12,6 +12,8 @@ div.st-key-right_panel {
     background: rgba(18, 21, 34, 0.85) !important;
     backdrop-filter: blur(12px) !important; 
     -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid transparent !important;
+    border-image: linear-gradient(225deg, #71340b, #af5e00, #e2d5be) 1 !important;
     border-radius: 7px;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
@@ -22,18 +24,7 @@ div.st-key-right_panel {
 }
 
 div.st-key-right_panel::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    background: linear-gradient(225deg, #71340b, #af5e00, #e2d5be) ;
-    border-radius: inherit;
-    -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+    content: none;
 }
 
 /* Tieu de */
@@ -213,5 +204,3 @@ div.st-key-masked img {
     height: 155px !important;
     object-fit: contain !important;
 }
-
-

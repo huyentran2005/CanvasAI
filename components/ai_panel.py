@@ -139,9 +139,9 @@ def display_right_panel():
                                 error_placeholder.empty()
 
 
-                with st.container(key ="analysis-card"):
-                    for r in resuilt:
-                        analysis_item(r["name"], r["level"], r["score"], r["severity"])
+            with st.container(key ="analysis-card"):
+                for r in resuilt:
+                    analysis_item(r["name"], r["level"], r["score"], r["severity"])
             
 
             with st.container(key="masked"):
