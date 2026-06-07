@@ -22,6 +22,7 @@ def init_default_state():
         "user": None,
         "masked_img": None,
         "analysis": False,
+        "analysis_results": [],
         "object":None,
         "undo_stack": [],
         "redo_stack": [],

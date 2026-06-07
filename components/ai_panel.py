@@ -121,6 +121,9 @@ def display_right_panel():
                         "severity": "None"
                     },
         ]
+        if st.session_state.analysis_results:
+            resuilt = st.session_state.analysis_results
+
         with st.container(key="container"):
             image_edited = None
             if st.button("PHÂN TÍCH ẢNH",icon="🔍",use_container_width=True, key = 'btn-analysis'):
@@ -129,6 +132,7 @@ def display_right_panel():
                     if image_edited:
                             try:
                                 resuilt = analysis_img_with_gemini(image_edited, image_edited.format)
+                                st.session_state.analysis_results = resuilt
                             except Exception as e:
                                 error_placeholder = st.empty()
                                 if "429" in str(e):
