@@ -21,7 +21,7 @@ if user:
     theme.set_background()
 else:
     col = []
-    col = st.columns([1,3.5,1.5],gap ='medium')
+    col = st.columns([0.9,3.8,1.3],gap ='small')
     with col[0]:
         adjust_panel.display_left_panel()
     with col[1]:

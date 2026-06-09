@@ -18,7 +18,9 @@ div.st-key-left_panel {
     padding: 15px 30px !important;
     z-index: 100000 !important;
     position: fixed;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
 }
 
 div.st-key-left_panel::before {

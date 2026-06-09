@@ -7,13 +7,15 @@ div.st-key-main_canvas p{
 }
 div.st-key-main_canvas {
     display: flex !important;
+    flex-direction: column !important;
     justify-content: center !important;  
     align-items: center !important;
     position: fixed !important;
     filter: blur(0.9);    
     top: 92px;
-    margin-left: -2.5% !important;
-    width: 55vw !important;
+    left: 18.3% !important;
+    margin-left: 0 !important;
+    width: 55.3vw !important;
     height: 76vh !important;
     background: rgba(18, 21, 34, 0.85) !important;
     backdrop-filter: blur(12px) !important; 
@@ -21,7 +23,7 @@ div.st-key-main_canvas {
     padding: 15px 30px !important;
     z-index: 100000 !important;
     position: fixed;
-    overflow: hidden;
+    overflow: auto;
     padding: 3px !important;
     object-fit: contain !important;
    
@@ -34,4 +36,10 @@ div.st-key-main_canvas div.stElementToolbar{
 img {
     max-width: 100% !important;
     max-height: 100% !important;
+    object-fit: contain !important;
+}
+
+div.st-key-main_canvas img {
+    display: block !important;
+    margin: 0 auto !important;
 }

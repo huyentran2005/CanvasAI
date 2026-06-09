@@ -21,12 +21,20 @@ def init_default_state():
         "original_img": None,
         "user": None,
         "masked_img": None,
+        "mask": None,
         "analysis": False,
         "analysis_results": [],
         "object":None,
         "undo_stack": [],
         "redo_stack": [],
         "last_upload_signature": None,
+        "scissor_points": [],
+        "scissor_segments": [],
+        "scissor_last_click": None,
+        "scissor_undo_stack": [],
+        "scissor_redo_stack": [],
+        "scissor_active": False,
+        "scissor_completed": False,
     }
 
     for key, value in defaults.items():
