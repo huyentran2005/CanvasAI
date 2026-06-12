@@ -3,7 +3,6 @@ from services import *
 from PIL import Image 
 import os
 import numpy as np
-import tensorflow as tf
 import cv2
 import onnxruntime as ort
 from module.enhance.classical_enhancement import (
@@ -11,8 +10,8 @@ from module.enhance.classical_enhancement import (
     enhance_by_retinex,
     histogram_equal,
 )
-
-TF_MODEL_DIR = "model/low_light_image_enhancement"
+from module.enhance.zero_dce import enhance_with_zero_dce
+from module.segmentation.intelligent_scissors import clear_scissor_state, undo_scissor_step, redo_scissor_step
 
 session = ort.InferenceSession(
     "model/dncnn-onnx-float/dncnn.onnx",
@@ -25,40 +24,8 @@ model_denoise = ort.InferenceSession(
 )
 
 
-@st.cache_resource
-def load_low_light_model():
-    return tf.saved_model.load(TF_MODEL_DIR)
-
-
 def enhance_image(image):
-    model = load_low_light_model()
-    image = image.convert("RGB")
-    original_img = np.array(image).astype(np.float32) / 255.0
-    
-    # Resize to model input size for curve estimation
-    h, w = original_img.shape[:2]
-    img_resized = cv2.resize(original_img, (400, 400))
-    
-    img_tensor = tf.convert_to_tensor(np.expand_dims(img_resized, axis=0), dtype=tf.float32)
-    signature = model.signatures["serving_default"]
-    output = signature(img_tensor)
-    curves = next(iter(output.values()))[0].numpy()  # Shape: (400, 400, 24)
-    
-    # Resize curves back to original image size
-    curves_resized = cv2.resize(curves, (w, h))
-    
-    # Apply curves to original image - Zero-DCE with controlled enhancement strength
-    # Scale curves to prevent oversaturation (divide by 4 for gentle enhancement)
-    enhanced = original_img.copy()
-    
-    for i in range(8):
-        curve_i = curves_resized[..., i * 3 : (i + 1) * 3].mean(axis=2, keepdims=True) / 4.0
-        # Apply gentle exponential adjustment
-        enhanced = enhanced * np.exp(-curve_i)
-    
-    enhanced = np.clip(enhanced, 0.0, 1.0)
-    enhanced = (enhanced * 255.0).astype(np.uint8)
-    return Image.fromarray(enhanced)
+    return enhance_with_zero_dce(image)
 
 def enhance_image_by_algorithm(image, algorithm):
     image = image.convert("RGB")
@@ -196,19 +163,38 @@ def display_left_panel():
                 st.session_state.last_upload_signature = upload_signature
                 st.session_state.last_applied_algorithm = "Algorithm"
                 st.session_state.analysis_results = []
+                clear_scissor_state()
+                st.session_state.scissor_active = False
 
         if st.button("AUTO FIX",use_container_width=True, key = 'btn_ai'):
             if st.session_state.edited_img is not None:
                 fixed_img, _ = auto_fix_by_analysis(st.session_state.edited_img)
                 if fixed_img is None:
-                    st.warning("Hãy phân tích ảnh bằng AI trước khi dùng AUTO FIX.")
+                    pass
                 else:
                     apply_edit(fixed_img)
-                    st.rerun()
         if st.button("REMOVE OBJECT",  icon="🧽", use_container_width=True, key = 'btn_remove'):
             pass
         if st.button("DRAW MASK", icon="🎭", use_container_width=True, key ='btn_mask'):
-            pass
+            should_rerun = True
+            prompt = (st.session_state.get("text_prompt") or "").strip()
+            if st.session_state.edited_img is not None and prompt:
+                from module.segmentation.text_remove import grounding_sam_pipeline
+
+            
+                mask = grounding_sam_pipeline(st.session_state.edited_img, prompt)
+
+                clear_scissor_state()
+                st.session_state.scissor_active = False
+                if mask is None:
+                    should_rerun = False
+                else:
+                    st.session_state.mask = mask
+                    st.session_state.masked_img = Image.fromarray(mask)
+                    st.session_state.scissor_completed = True
+            else:
+                st.session_state.scissor_active = True
+                st.session_state.scissor_completed = False
 
         action = st.selectbox(
             "Algorithm",
@@ -223,11 +209,16 @@ def display_left_panel():
         ):
             apply_edit(enhance_image_by_algorithm(st.session_state.edited_img, action))
             st.session_state.last_applied_algorithm = action
-            st.rerun()
 
         if st.button("UNDO", icon="↩️", use_container_width=True, key ='btn_undo'):
-            undo_edit()
+            if st.session_state.scissor_active:
+                undo_scissor_step()
+            else:
+                undo_edit()
             st.rerun()
         if st.button("REDO", icon="↪️", use_container_width=True, key ='btn_redo'):
-            redo_edit()
+            if st.session_state.scissor_active:
+                redo_scissor_step()
+            else:
+                redo_edit()
             st.rerun()
