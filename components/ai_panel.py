@@ -7,10 +7,83 @@ import os
 import time
 import json
 import base64
+import cv2
+import numpy as np
 import google.generativeai as genai
+from module.segmentation.intelligent_scissors import display_mask_panel
 
 
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+
+
+def _score_to_level(score, labels):
+    if score >= 75:
+        return labels[0], "low"
+    if score >= 45:
+        return labels[1], "medium"
+    return labels[2], "high"
+
+
+def analysis_img_by_computation(image):
+    image = image.convert("RGB")
+    img = np.array(image).astype(np.float32)
+    gray = cv2.cvtColor(img.astype(np.uint8), cv2.COLOR_RGB2GRAY).astype(np.float32)
+
+    brightness = float(gray.mean())
+    brightness_score = float(np.clip(100 - abs(brightness - 128.0) / 128.0 * 100.0, 0, 100))
+
+    lap_var = float(cv2.Laplacian(gray, cv2.CV_32F).var())
+    sharpness_score = float(np.clip((lap_var / 1800.0) * 100.0, 0, 100))
+
+    rgb_means = img.mean(axis=(0, 1))
+    mean_rgb = float(np.mean(rgb_means) + 1e-6)
+    channel_delta = float(np.mean(np.abs(rgb_means - mean_rgb)) / mean_rgb)
+    color_score = float(np.clip(100 - channel_delta * 220.0, 0, 100))
+
+    blur = cv2.GaussianBlur(gray, (0, 0), 3)
+    high_freq = gray - blur
+    noise_level = float(np.std(high_freq))
+    purity_score = float(np.clip(100 - (noise_level / 35.0) * 100.0, 0, 100))
+
+    brightness_level, brightness_severity = _score_to_level(
+        brightness_score, ("Tốt", "Trung bình", "Kém")
+    )
+    purity_level, purity_severity = _score_to_level(
+        purity_score, ("Rất sạch", "Hơi nhiễu", "Nhiễu nặng")
+    )
+    color_level, color_severity = _score_to_level(
+        color_score, ("Chính xác", "Sai lệch nhẹ", "Sai lệch nặng")
+    )
+    sharpness_level, sharpness_severity = _score_to_level(
+        sharpness_score, ("Sắc nét", "Khá rõ", "Mờ nhòe")
+    )
+
+    return [
+        {
+            "name": "Cân bằng sáng",
+            "level": brightness_level,
+            "score": round(brightness_score, 2),
+            "severity": brightness_severity,
+        },
+        {
+            "name": "Độ trong của ảnh",
+            "level": purity_level,
+            "score": round(purity_score, 2),
+            "severity": purity_severity,
+        },
+        {
+            "name": "Độ chuẩn màu",
+            "level": color_level,
+            "score": round(color_score, 2),
+            "severity": color_severity,
+        },
+        {
+            "name": "Độ nét",
+            "level": sharpness_level,
+            "score": round(sharpness_score, 2),
+            "severity": sharpness_severity,
+        },
+    ]
 
 def analysis_item(title, level, percent, color_class):
     st.markdown(f"""
@@ -74,21 +147,26 @@ def analysis_img_with_gemini(image, extention = "PNG" ):
         }
         Lưu ý: Chỉ trả về JSON.
     """
-    response = model.generate_content(
-        contents=[
-            prompt,
-            {
-                "mime_type": f"image/{extention.lower()}",
-                "data": img_bytes
-            }
-        ],
-        generation_config={"response_mime_type": "application/json"}
-    )
-    raw_text = response.text.strip()
-    if raw_text.startswith("```"):
-        raw_text = raw_text.replace("```json", "").replace("```", "").strip()
-            
-    return json.loads(raw_text)["items"]
+    try:
+        response = model.generate_content(
+            contents=[
+                prompt,
+                {
+                    "mime_type": f"image/{extention.lower()}",
+                    "data": img_bytes
+                }
+            ],
+            generation_config={"response_mime_type": "application/json"}
+        )
+        raw_text = response.text.strip()
+        if raw_text.startswith("```"):
+            raw_text = raw_text.replace("```json", "").replace("```", "").strip()
+
+        return json.loads(raw_text)["items"]
+    except Exception as e:
+        if "429" in str(e):
+            return analysis_img_by_computation(image)
+        raise
 
 def display_right_panel():
     embed_css("ai_panel.css")
@@ -135,10 +213,7 @@ def display_right_panel():
                                 st.session_state.analysis_results = resuilt
                             except Exception as e:
                                 error_placeholder = st.empty()
-                                if "429" in str(e):
-                                    error_placeholder.error("⚠️ Bạn đã dùng hết lượt phân tích miễn phí!")
-                                else:
-                                    print(f"error: {e}")
+                                print(f"error: {e}")
                                 time.sleep(3)
                                 error_placeholder.empty()
 
@@ -146,16 +221,7 @@ def display_right_panel():
             with st.container(key ="analysis-card"):
                 for r in resuilt:
                     analysis_item(r["name"], r["level"], r["score"], r["severity"])
-            
-
             with st.container(key="masked"):
-                st.caption("DETECTION MASK")
-                with st.container(key="masked_img"):
-                    if not st.session_state.masked_img:
-                        mask_path = "assets/favicon/mask.jpg"
-                        st.session_state.masked_img = Image.open(mask_path)
-                    
-                    st.image(st.session_state.masked_img)
-
+                display_mask_panel()
 
                 
