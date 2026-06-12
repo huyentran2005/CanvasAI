@@ -35,6 +35,7 @@ def init_default_state():
         "scissor_redo_stack": [],
         "scissor_active": False,
         "scissor_completed": False,
+        "text_prompt": None
     }
 
     for key, value in defaults.items():
