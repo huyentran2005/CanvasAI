@@ -11,7 +11,6 @@ div.st-key-main_canvas {
     justify-content: center !important;  
     align-items: center !important;
     position: fixed !important;
-    filter: blur(0.9);    
     top: 92px;
     left: 18.3% !important;
     margin-left: 0 !important;

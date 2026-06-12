@@ -3,7 +3,6 @@
 /* Khung */
 div.st-key-left_panel {
     position: fixed !important;
-    filter: blur(0.9);
     top: 13% !important;
     left: 0.8% !important;
     right: 0.8% !important;
