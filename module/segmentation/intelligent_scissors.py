@@ -168,7 +168,7 @@ def handle_scissor_click(image, clicked):
             st.session_state.mask = mask
             st.session_state.scissor_completed = True
             st.session_state.masked_img = Image.fromarray(mask)
-        st.rerun(scope="fragment")
+        st.rerun()
         return
 
     if st.session_state.scissor_completed:
@@ -190,7 +190,7 @@ def handle_scissor_click(image, clicked):
             st.session_state.scissor_segments.append(contour)
 
     st.session_state.mask = None
-    st.rerun(scope="fragment")
+    st.rerun()
 
 
 def draw_mask():
