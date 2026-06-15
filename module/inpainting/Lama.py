@@ -92,18 +92,10 @@ def load_model(model_path = MODEL_PATH, use_gpu = False):
 
 def run_inpaint(image, mask):
     session = load_model(MODEL_PATH, use_gpu= False)
-    if isinstance(mask, np.ndarray):
-        Image.fromarray(mask).save("debug_mask.png")
-    if isinstance(image, np.ndarray):
-        Image.fromarray(mask).save("debug_image.png")
+    
     img, msk, orig_size = prepare_inputs(session, image, mask)
-    print(f"[img tensor]  shape={img.shape}, min={img.min():.3f}, max={img.max():.3f}")
-    print(f"[msk tensor]  shape={msk.shape}, min={msk.min():.3f}, max={msk.max():.3f}, "
-          f"nonzero={np.count_nonzero(msk)}")
+    
 
-    # Lưu mask tensor để kiểm tra vùng model thấy
-    msk_vis = (msk[0, 0] * 255).astype(np.uint8)
-    Image.fromarray(msk_vis).save("debug_mask_tensor.png")
     outputs = session.run(None, {
         'image': img.astype(np.float32),
         'mask' : msk.astype(np.float32),
@@ -111,11 +103,9 @@ def run_inpaint(image, mask):
     result = outputs[0][0]                        # [3, H, W]
     result = np.transpose(result, (1, 2, 0))      # [H, W, 3]
     result = np.clip(result, 0, 255).astype(np.uint8)
-    Image.fromarray(result).save("debug_output_raw.png")
 
     result_pil = Image.fromarray(result)
     # Resize kết quả về kích thước ảnh gốc
     result_pil = result_pil.resize(orig_size, Image.LANCZOS)
-    result_pil.save("result.png")
-    print("thanh cong")
+
     return result_pil
