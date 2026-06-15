@@ -145,6 +145,8 @@ def build_mask_from_state(image):
     polygon = np.concatenate(all_segments, axis=0)
     mask = np.zeros(image_rgb.shape[:2], dtype=np.uint8)
     cv2.fillPoly(mask, [polygon], 255)
+    kernel = np.ones((10, 10), np.uint8) 
+    mask = cv2.dilate(mask, kernel, iterations=1)
     return mask
 
 

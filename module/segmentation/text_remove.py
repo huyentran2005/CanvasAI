@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 import streamlit as st
 import torch
 from PIL import Image
@@ -132,7 +133,8 @@ def grounding_sam_pipeline(image_pil=None, prompt=None):
             )
         )
         mask[object_mask == True] = 255
-    
+    kernel = np.ones((20, 20), np.uint8) 
+    mask = cv2.dilate(mask, kernel, iterations=1)
     return mask
 
 

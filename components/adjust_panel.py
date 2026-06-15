@@ -174,7 +174,30 @@ def display_left_panel():
                 else:
                     apply_edit(fixed_img)
         if st.button("REMOVE OBJECT",  icon="🧽", use_container_width=True, key = 'btn_remove'):
-            pass
+            if (
+                st.session_state.edited_img is not None
+                and st.session_state.mask is not None
+            ):
+                from module.inpainting.Lama import run_inpaint
+
+                result = run_inpaint(
+                    st.session_state.edited_img,
+                    st.session_state.mask
+                )
+
+                st.session_state.edited_img = result
+                st.session_state.mask = None
+                st.session_state.masked_img = None
+                st.session_state.scissor_points = []
+                st.session_state.scissor_segments = []
+                st.session_state.scissor_last_click = None
+                st.session_state.scissor_undo_stack = []
+                st.session_state.scissor_redo_stack = []
+                st.session_state.scissor_active = False
+                st.session_state.scissor_completed = False
+                st.session_state.text_prompt = None
+                st.rerun()
+                
         if st.button("DRAW MASK", icon="🎭", use_container_width=True, key ='btn_mask'):
             should_rerun = True
             prompt = (st.session_state.get("text_prompt") or "").strip()
