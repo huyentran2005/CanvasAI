@@ -10,7 +10,7 @@ from module.enhance.classical_enhancement import (
     enhance_by_retinex,
     histogram_equal,
 )
-from module.enhance.zero_dce import enhance_with_zero_dce
+from module.enhance.enlightengan import enhance_with_enlightengan
 from module.segmentation.intelligent_scissors import clear_scissor_state, undo_scissor_step, redo_scissor_step
 
 session = ort.InferenceSession(
@@ -25,7 +25,7 @@ model_denoise = ort.InferenceSession(
 
 
 def enhance_image(image):
-    return enhance_with_zero_dce(image)
+    return enhance_with_enlightengan(image)
 
 def enhance_image_by_algorithm(image, algorithm):
     image = image.convert("RGB")
@@ -38,6 +38,8 @@ def enhance_image_by_algorithm(image, algorithm):
         result_bgr, _, _ = enhance_by_clahe(img_bgr)
     elif algorithm == "Retinex":
         result_bgr = enhance_by_retinex(img_bgr, method="msrcr")
+    elif algorithm == "EnlightenGAN":
+        return enhance_with_enlightengan(image)
     else:
         return image
 
@@ -221,7 +223,7 @@ def display_left_panel():
 
         action = st.selectbox(
             "Algorithm",
-            ["Algorithm","HE","CLAHE","Retinex"],
+            ["Algorithm","EnlightenGAN","HE","CLAHE","Retinex"],
             label_visibility= "collapsed"
         )
         if action == "Algorithm":
