@@ -17,7 +17,7 @@ header.show_header()
 
 user = auth.get_user()
 
-if user:
+if not user:
     theme.set_background()
 else:
     col = []

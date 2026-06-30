@@ -31,7 +31,7 @@ def display_bottom_bar(btn = ["⟲ Reset ","EXPORT PNG","EXPORT JPG"]):
                 st.button(btn[1], disabled= True)
             else:
                 buf = io.BytesIO()
-                image.save(buf, format='PNG')
+                image.save(buf, format="PNG", compress_level=0)
                 buf.seek(0)
                 st.download_button(
                     label= btn[1],
@@ -45,7 +45,13 @@ def display_bottom_bar(btn = ["⟲ Reset ","EXPORT PNG","EXPORT JPG"]):
                 st.button(btn[2], disabled= True)
             else:
                 buf = io.BytesIO()
-                image.convert("RGB").save(buf, format='JPEG')
+                image.convert("RGB").save(
+                    buf,
+                    format="JPEG",
+                    quality=100,
+                    subsampling=0,
+                    optimize=True,
+                )
                 buf.seek(0)
                 st.download_button(
                     label= btn[2],

@@ -21,8 +21,7 @@ def display_img():
             if st.session_state.scissor_active:
                 draw_mask()
             else:
-                display_img, _ = fit_image_for_display(image)
-                st.image(display_img)
+                st.image(image)
         else:
             temp =  Image.open("assets/favicon/empty.jpg")
             st.image(temp)
